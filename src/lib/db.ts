@@ -65,6 +65,18 @@ function initDb(db: Database.Database) {
       FOREIGN KEY (creator_id) REFERENCES users(id),
       UNIQUE(fan_id, creator_id)
     );
+
+    CREATE TABLE IF NOT EXISTS verifications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      session_id TEXT UNIQUE NOT NULL,
+      status TEXT DEFAULT 'pending',
+      decision TEXT DEFAULT '',
+      veriff_url TEXT DEFAULT '',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );
   `);
 }
 

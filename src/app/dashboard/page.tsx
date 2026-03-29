@@ -12,6 +12,7 @@ interface User {
   role: string;
   avatar: string | null;
   bio: string;
+  is_verified: number;
   created_at: string;
 }
 
@@ -90,6 +91,36 @@ export default function DashboardPage() {
           </p>
         </div>
 
+        {/* Verification Banner for Creators */}
+        {user.role === "creator" && !user.is_verified && (
+          <div className="glass-card p-6 mb-8 border border-yellow-400/30 animate-fade-up">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="text-yellow-400 text-2xl flex-shrink-0">&#128274;</div>
+              <div className="flex-1">
+                <h3 className="font-heading text-lg text-white mb-1">Verify Your Identity</h3>
+                <p className="text-white/50 font-light text-sm">
+                  Complete identity verification to start uploading content. This keeps our platform safe.
+                </p>
+              </div>
+              <Link
+                href="/verify"
+                className="px-6 py-2.5 rounded-xl font-semibold bg-accent text-darkpurple hover:bg-accent/90 transition-all text-sm flex-shrink-0"
+              >
+                Verify Now
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {user.role === "creator" && !!user.is_verified && (
+          <div className="glass-card p-4 mb-8 border border-green-400/30 animate-fade-up">
+            <div className="flex items-center gap-3">
+              <span className="text-green-400 text-lg">&#10003;</span>
+              <span className="text-green-300 text-sm font-light">Identity verified</span>
+            </div>
+          </div>
+        )}
+
         {/* Quick Actions */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {user.role === "creator" ? (
@@ -104,10 +135,14 @@ export default function DashboardPage() {
                 <h3 className="font-heading text-xl text-white mb-2">Upload Content</h3>
                 <p className="text-white/50 font-light text-sm">Share photos and videos with your subscribers</p>
               </Link>
-              <Link href="/dashboard/stats" className="glass-card p-6 hover:bg-white/10 transition-colors block">
-                <div className="text-accent text-2xl mb-3">&#9733;</div>
-                <h3 className="font-heading text-xl text-white mb-2">My Stats</h3>
-                <p className="text-white/50 font-light text-sm">View your subscribers and earnings</p>
+              <Link href="/verify" className="glass-card p-6 hover:bg-white/10 transition-colors block">
+                <div className={`text-2xl mb-3 ${user.is_verified ? "text-green-400" : "text-accent"}`}>
+                  {user.is_verified ? "\u2713" : "\u{1F512}"}
+                </div>
+                <h3 className="font-heading text-xl text-white mb-2">Verification</h3>
+                <p className="text-white/50 font-light text-sm">
+                  {user.is_verified ? "Identity verified" : "Verify your identity to post"}
+                </p>
               </Link>
             </>
           ) : (
