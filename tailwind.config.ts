@@ -22,6 +22,17 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }: { addUtilities: (utilities: Record<string, Record<string, string>>) => void }) {
+      addUtilities({
+        '.line-clamp-2': {
+          overflow: 'hidden',
+          display: '-webkit-box',
+          '-webkit-box-orient': 'vertical',
+          '-webkit-line-clamp': '2',
+        },
+      })
+    },
+  ],
 };
 export default config;
