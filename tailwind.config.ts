@@ -9,8 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#AA6DC7",
+        accent: "#FEB8FF",
+        cyan: "#84DCF0",
+        darkpurple: "#412F73",
+        teal: "#149183",
+        bluepurple: "#6767C2",
+      },
+      fontFamily: {
+        heading: ['"Sulphur Point"', 'sans-serif'],
+        body: ['"Source Sans 3"', 'sans-serif'],
       },
     },
   },
