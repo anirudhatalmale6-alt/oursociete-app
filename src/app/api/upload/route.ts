@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     const db = getDb();
     const result = db.prepare(
       "INSERT INTO posts (creator_id, title, caption, media_type, media_url, is_premium) VALUES (?, ?, ?, ?, ?, ?)"
-    ).run(payload.id, title || "", caption || "", mediaType, `/uploads/${filename}`, isPremium);
+    ).run(payload.id, title || "", caption || "", mediaType, `/api/files/${filename}`, isPremium);
 
     return NextResponse.json({
       message: "Content uploaded successfully",

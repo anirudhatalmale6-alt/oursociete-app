@@ -33,7 +33,7 @@ export async function PUT(req: NextRequest) {
       const filename = `avatar_${payload.id}_${Date.now()}.${ext}`;
       const buffer = Buffer.from(await avatarFile.arrayBuffer());
       fs.writeFileSync(path.join(uploadDir, filename), buffer);
-      avatarPath = `/uploads/${filename}`;
+      avatarPath = `/api/files/${filename}`;
     }
 
     if (coverFile && coverFile.size > 0) {
@@ -41,7 +41,7 @@ export async function PUT(req: NextRequest) {
       const filename = `cover_${payload.id}_${Date.now()}.${ext}`;
       const buffer = Buffer.from(await coverFile.arrayBuffer());
       fs.writeFileSync(path.join(uploadDir, filename), buffer);
-      coverPath = `/uploads/${filename}`;
+      coverPath = `/api/files/${filename}`;
     }
 
     let query = "UPDATE users SET name = ?, bio = ?, location = ?, categories = ?, subscription_price = ?, updated_at = CURRENT_TIMESTAMP";
